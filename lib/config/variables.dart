@@ -1,2 +1,0 @@
-const String NEWSAPI = '7276b1e5c64c4d8db66a332f4ab44053';
-const String NEWSAPI2 = '2536c395bd304ef88b839ff5260d145a';
