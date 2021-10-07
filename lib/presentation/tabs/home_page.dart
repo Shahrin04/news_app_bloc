@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/Presentation/widgets/hot_news.dart';
-import 'package:news_app/Presentation/widgets/top_channels.dart';
-import 'package:news_app/Presentation/widgets/top_headLine_widget.dart';
+import 'package:news_app/presentation/widgets/hot_news.dart';
+import 'package:news_app/presentation/widgets/top_channels.dart';
+import 'package:news_app/presentation/widgets/top_headLine_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);

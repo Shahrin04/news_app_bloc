@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:news_app/Config/variables.dart';
-import 'package:news_app/Data/models/article_response.dart';
-import 'package:news_app/Data/models/source_response.dart';
+import 'package:news_app/config/variables.dart';
+import 'package:news_app/data/models/article_response.dart';
+import 'package:news_app/data/models/source_response.dart';
 
 class NewsRepository {
   static String mainUrl = 'https://newsapi.org/v2/';
-  final String apiKey = NEWSAPI2;
+  final String apiKey = NEWSAPI;
 
   final Dio _dio = Dio();
 
@@ -25,6 +25,7 @@ class NewsRepository {
       return SourceResponse.fromJason(response.data);
     } on Exception catch (error) {
       print("Exception Occurred: $error");
+      return SourceResponse.withError('$error');
     }
   }
 
@@ -40,6 +41,7 @@ class NewsRepository {
       return ArticleResponse.fromJson(response.data);
     } catch (error) {
       print("Exception Occurred: $error");
+      return ArticleResponse.withError('$error');
     }
   }
 
@@ -57,6 +59,7 @@ class NewsRepository {
       return ArticleResponse.fromJson(response.data);
     } on Exception catch (error) {
       print("Exception Occurred: $error");
+      return ArticleResponse.withError('$error');
     }
   }
 
@@ -69,6 +72,7 @@ class NewsRepository {
       return ArticleResponse.fromJson(response.data);
     } on Exception catch (error) {
       print("Exception Occurred: $error");
+      return ArticleResponse.withError('$error');
     }
   }
 
@@ -81,6 +85,7 @@ class NewsRepository {
       return ArticleResponse.fromJson(response.data);
     } on Exception catch (error) {
       print("Exception Occurred: $error");
+      return ArticleResponse.withError('$error');
     }
   }
 }

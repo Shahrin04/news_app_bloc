@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/Data/models/source_model.dart';
-import 'package:news_app/Data/models/source_response.dart';
-import 'package:news_app/Logic/top_channels_bloc/top_channels_bloc.dart';
-import 'package:news_app/Presentation/screens/detail_news.dart';
-import 'package:news_app/Presentation/screens/source_details.dart';
-import 'package:news_app/Utils/universal_variables.dart';
+import 'package:news_app/data/models/source_model.dart';
+import 'package:news_app/data/models/source_response.dart';
+import 'package:news_app/logic/top_channels_bloc/top_channels_bloc.dart';
+import 'package:news_app/presentation/screens/source_details.dart';
+import 'package:news_app/utils/universal_variables.dart';
 
 class TopChannels extends StatefulWidget {
   const TopChannels({Key key}) : super(key: key);
@@ -73,13 +72,13 @@ class _TopChannelsState extends State<TopChannels> {
                   onTap: () {
                     sources[index] == null
                         ? Center(
-                            child: CircularProgressIndicator(),
-                          )
+                      child: CircularProgressIndicator(),
+                    )
                         : Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    SourceDetails(source: sources[index])));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                SourceDetails(source: sources[index])));
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,6 +135,7 @@ class _TopChannelsState extends State<TopChannels> {
               );
             }),
       );
+
     }
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/Data/models/source_model.dart';
-import 'package:news_app/Data/models/source_response.dart';
-import 'package:news_app/Logic/top_channels_bloc/top_channels_bloc.dart';
-import 'package:news_app/Presentation/screens/source_details.dart';
+import 'package:news_app/data/models/source_model.dart';
+import 'package:news_app/data/models/source_response.dart';
+import 'package:news_app/logic/top_channels_bloc/top_channels_bloc.dart';
+import 'package:news_app/presentation/screens/source_details.dart';
+import 'package:news_app/presentation/screens/time_out_screen.dart';
 
 class SourcesPage extends StatefulWidget {
   const SourcesPage({Key key}) : super(key: key);
@@ -40,6 +41,7 @@ class _SourcesPageState extends State<SourcesPage> {
 
   Widget _buildChannelSourceGrid(SourceResponse data) {
     List<SourceModel> sources = data.sources;
+    String error = data.error;
 
     if (sources.length == 0) {
       return Center(
@@ -55,66 +57,72 @@ class _SourcesPageState extends State<SourcesPage> {
         ),
       );
     } else {
-      return GridView.builder(
-          itemCount: sources.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, childAspectRatio: 0.86),
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SourceDetails(source: sources[index])));
-                },
-                child: Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[100],
-                          blurRadius: 5,
-                          spreadRadius: 1,
-                          offset: Offset(1, 1))
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Hero(
-                        tag: sources[index].id,
-                        child: Container(
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                      'assets/logo/${sources[index].id}.png'))),
+      if(error == ''){
+        return GridView.builder(
+            itemCount: sources.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, childAspectRatio: 0.86),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                SourceDetails(source: sources[index])));
+                  },
+                  child: Container(
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey[100],
+                            blurRadius: 5,
+                            spreadRadius: 1,
+                            offset: Offset(1, 1))
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Hero(
+                          tag: sources[index].id,
+                          child: Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                        'assets/logo/${sources[index].id}.png'))),
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                        child: Text(
-                          sources[index].name,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
+                        Container(
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                          child: Text(
+                            sources[index].name,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          });
+              );
+            });
+      }else{
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TimeOutScreen()));
+      }
+
     }
   }
 }

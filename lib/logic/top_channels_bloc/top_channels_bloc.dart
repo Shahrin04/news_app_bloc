@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:news_app/Data/models/source_response.dart';
-import 'package:news_app/Data/repo/news_repository.dart';
+import 'package:news_app/data/models/source_response.dart';
+import 'package:news_app/data/repo/news_repository.dart';
 
 part 'top_channels_event.dart';
 

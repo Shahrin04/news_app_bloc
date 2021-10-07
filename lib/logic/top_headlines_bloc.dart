@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:news_app/Data/models/article_response.dart';
-import 'package:news_app/Data/repo/news_repository.dart';
+import 'package:news_app/data/models/article_response.dart';
+import 'package:news_app/data/repo/news_repository.dart';
 
 part 'top_headlines_event.dart';
 

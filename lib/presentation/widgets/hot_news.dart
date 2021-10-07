@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/Data/models/article_model.dart';
-import 'package:news_app/Data/models/article_response.dart';
-import 'package:news_app/Logic/hot_news_bloc/hot_news_bloc.dart';
-import 'package:news_app/Presentation/screens/detail_news.dart';
-import 'package:news_app/Utils/universal_variables.dart';
+import 'package:news_app/data/models/article_model.dart';
+import 'package:news_app/data/models/article_response.dart';
+import 'package:news_app/logic/hot_news_bloc/hot_news_bloc.dart';
+import 'package:news_app/presentation/screens/detail_news.dart';
+import 'package:news_app/utils/universal_variables.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 class HotNews extends StatefulWidget {

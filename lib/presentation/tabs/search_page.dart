@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/Data/models/article_model.dart';
-import 'package:news_app/Data/models/article_response.dart';
-import 'package:news_app/Logic/hot_news_bloc/hot_news_bloc.dart';
-import 'package:news_app/Presentation/screens/detail_news.dart';
-import 'package:news_app/Utils/universal_variables.dart';
+import 'package:news_app/data/models/article_model.dart';
+import 'package:news_app/data/models/article_response.dart';
+import 'package:news_app/logic/hot_news_bloc/hot_news_bloc.dart';
+import 'package:news_app/presentation/screens/detail_news.dart';
+import 'package:news_app/presentation/screens/time_out_screen.dart';
+import 'package:news_app/utils/universal_variables.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 class SearchPage extends StatefulWidget {
@@ -98,7 +99,8 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildSearchWidget(ArticleResponse data) {
-    final List<ArticleModel> sourceDetails = data.articles;
+    List<ArticleModel> sourceDetails = data.articles;
+    String error = data.error;
 
     if (sourceDetails.length == 0) {
       return Center(
@@ -114,77 +116,83 @@ class _SearchPageState extends State<SearchPage> {
         ),
       );
     } else {
-      return ListView.builder(
-          itemCount: sourceDetails.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                sourceDetails[index] == null
-                    ? Center(
-                  child: CircularProgressIndicator(),
-                )
-                    : Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            DetailNews(article: sourceDetails[index])));
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border(top: BorderSide(color: Colors.grey[100])),
-                    color: Colors.white),
-                height: 150,
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            sourceDetails[index].title,
-                            maxLines: 3,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                              child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Text(
-                                  timeUntil(
-                                      DateTime.parse(sourceDetails[index].date)),
-                                  maxLines: 3,
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.black26,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ))
-                        ],
+      if(error == ''){
+        return ListView.builder(
+            itemCount: sourceDetails.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  sourceDetails[index] == null
+                      ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                      : Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetailNews(article: sourceDetails[index])));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border(top: BorderSide(color: Colors.grey[100])),
+                      color: Colors.white),
+                  height: 150,
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              sourceDetails[index].title,
+                              maxLines: 3,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                                child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    timeUntil(
+                                        DateTime.parse(sourceDetails[index].date)),
+                                    maxLines: 3,
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.black26,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ))
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 10),
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: 130,
-                      child: FadeInImage.assetNetwork(
-                        // width: double.maxFinite,
-                        // height: MediaQuery.of(context).size.height * 0.33,
-                          fit: BoxFit.cover,
-                          placeholder: 'assets/img/placeholder.jpg',
-                          image: sourceDetails[index].image == null
-                              ? 'https://dummyimage.com/600x400/949494/ffffff.jpg&text=No+Image'
-                              : sourceDetails[index].image),
-                    )
-                  ],
+                      Container(
+                        padding: EdgeInsets.only(right: 10),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: 130,
+                        child: FadeInImage.assetNetwork(
+                          // width: double.maxFinite,
+                          // height: MediaQuery.of(context).size.height * 0.33,
+                            fit: BoxFit.cover,
+                            placeholder: 'assets/img/placeholder.jpg',
+                            image: sourceDetails[index].image == null
+                                ? 'https://dummyimage.com/600x400/949494/ffffff.jpg&text=No+Image'
+                                : sourceDetails[index].image),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            );
-          });
+              );
+            });
+      }else{
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TimeOutScreen()));
+      }
+
     }
   }
 

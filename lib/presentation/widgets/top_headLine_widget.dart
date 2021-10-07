@@ -1,10 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/Data/models/article_model.dart';
-import 'package:news_app/Data/models/article_response.dart';
-import 'package:news_app/Logic/top_headlines_bloc.dart';
-import 'package:news_app/Presentation/screens/detail_news.dart';
+import 'package:news_app/data/models/article_model.dart';
+import 'package:news_app/data/models/article_response.dart';
+import 'package:news_app/logic/top_headlines_bloc.dart';
+import 'package:news_app/presentation/screens/detail_news.dart';
+import 'package:news_app/presentation/screens/time_out_screen.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 class TopHeadLineSliderWidget extends StatefulWidget {
@@ -41,14 +42,20 @@ class _TopHeadLineSliderWidgetState extends State<TopHeadLineSliderWidget> {
 
   Widget _buildHeadLineSlider(ArticleResponse data) {
     List<ArticleModel> articles = data.articles;
+    String error = data.error;
 
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: 200,
-        viewportFraction: 0.9,
-      ),
-      items: getExpenseSliders(articles),
-    );
+    if (error == '') {
+      return CarouselSlider(
+        options: CarouselOptions(
+          height: 200,
+          viewportFraction: 0.9,
+        ),
+        items: getExpenseSliders(articles),
+      );
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => TimeOutScreen()));
+    }
   }
 
   getExpenseSliders(List<ArticleModel> articles) {

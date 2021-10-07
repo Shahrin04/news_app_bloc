@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/Data/models/article_model.dart';
-import 'package:news_app/Data/models/article_response.dart';
-import 'package:news_app/Data/models/source_model.dart';
-import 'package:news_app/Logic/source_detail_bloc/source_details_bloc.dart';
-import 'package:news_app/Presentation/screens/detail_news.dart';
-import 'package:news_app/Utils/universal_variables.dart';
+import 'package:news_app/data/models/article_model.dart';
+import 'package:news_app/data/models/article_response.dart';
+import 'package:news_app/data/models/source_model.dart';
+import 'package:news_app/logic/source_detail_bloc/source_details_bloc.dart';
+import 'package:news_app/presentation/screens/detail_news.dart';
+import 'package:news_app/presentation/screens/time_out_screen.dart';
+import 'package:news_app/utils/universal_variables.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 class SourceDetails extends StatefulWidget {
@@ -96,7 +97,8 @@ class _SourceDetailsState extends State<SourceDetails> {
   }
 
   Widget _buildSourceDetailsList(ArticleResponse data) {
-    final List<ArticleModel> sourceDetails = data.articles;
+    List<ArticleModel> sourceDetails = data.articles;
+
 
     if (sourceDetails.length == 0) {
       return Center(
@@ -119,13 +121,13 @@ class _SourceDetailsState extends State<SourceDetails> {
               onTap: () {
                 sourceDetails[index] == null
                     ? Center(
-                        child: CircularProgressIndicator(),
-                      )
+                  child: CircularProgressIndicator(),
+                )
                     : Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DetailNews(article: sourceDetails[index])));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DetailNews(article: sourceDetails[index])));
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -151,17 +153,17 @@ class _SourceDetailsState extends State<SourceDetails> {
                           ),
                           Expanded(
                               child: Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                              timeUntil(
-                                  DateTime.parse(sourceDetails[index].date)),
-                              maxLines: 3,
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black26,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ))
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  timeUntil(
+                                      DateTime.parse(sourceDetails[index].date)),
+                                  maxLines: 3,
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.black26,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ))
                         ],
                       ),
                     ),
@@ -170,8 +172,8 @@ class _SourceDetailsState extends State<SourceDetails> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: 130,
                       child: FadeInImage.assetNetwork(
-                          // width: double.maxFinite,
-                          // height: MediaQuery.of(context).size.height * 0.33,
+                        // width: double.maxFinite,
+                        // height: MediaQuery.of(context).size.height * 0.33,
                           fit: BoxFit.cover,
                           placeholder: 'assets/img/placeholder.jpg',
                           image: sourceDetails[index].image == null

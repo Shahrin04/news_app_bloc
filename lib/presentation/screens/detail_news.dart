@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:news_app/Data/models/article_model.dart';
-import 'package:news_app/Utils/universal_variables.dart';
+import 'package:news_app/data/models/article_model.dart';
+import 'package:news_app/utils/universal_variables.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 

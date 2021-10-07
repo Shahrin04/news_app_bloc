@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/Presentation/tabs/home_page.dart';
-import 'package:news_app/Presentation/tabs/search_page.dart';
-import 'package:news_app/Presentation/tabs/sources_page.dart';
-import 'package:news_app/Utils/universal_variables.dart';
+import 'package:news_app/presentation/tabs/home_page.dart';
+import 'package:news_app/presentation/tabs/search_page.dart';
+import 'package:news_app/presentation/tabs/sources_page.dart';
+import 'package:news_app/utils/universal_variables.dart';
 
 class MainScreen extends StatefulWidget {
   @override
