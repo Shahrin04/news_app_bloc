@@ -26,5 +26,5 @@ class HotNewsLoadComplete extends HotNewsState {
   ArticleResponse get getHotNews => _hotNews;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [this._hotNews];
 }
